@@ -10,9 +10,10 @@ import requests
 FLEXVM_API_BASE_URI = 'https://support.fortinet.com/ES/api/flexvm/v1/'
 
 COMMON_HEADERS = {
-        'Content-type':'application/json',
+        'Content-type': 'application/json',
         'Accept': 'application/json'
     }
+
 
 def requests_post(resource_url, json_body, headers):
     """ Requests Post """
@@ -25,8 +26,8 @@ def requests_post(resource_url, json_body, headers):
         return_value = json_data
     else:
         return_value = None
-
     return return_value
+
 
 def get_token(username, password, client_id, grant_type):
     """ Get Authentication Token """
@@ -44,6 +45,8 @@ def get_token(username, password, client_id, grant_type):
     results = requests_post(uri, body, COMMON_HEADERS)
     return results
 
+
+
 def programs_list(access_token):
     """ Retrieve FlexVM Programs List """
     print('--> Retrieving FlexVM Programs...')
@@ -54,6 +57,7 @@ def programs_list(access_token):
 
     results = requests_post(uri, '', headers)
     return results
+
 
 def configs_create(access_token, program_serial_number, name, cpus, svc_package):
     """ Create FlexVM Configuration """
@@ -82,6 +86,7 @@ def configs_create(access_token, program_serial_number, name, cpus, svc_package)
     results = requests_post(uri, body, headers)
     return results
 
+
 def configs_disable(access_token, config_id):
     """ Disable FlexVM Configuration """
     print('--> Disable FlexVM Configuration...')
@@ -96,6 +101,7 @@ def configs_disable(access_token, config_id):
 
     results = requests_post(uri, body, headers)
     return results
+
 
 def configs_enable(access_token, config_id):
     """ Enable FlexVM Configuration """
@@ -112,6 +118,7 @@ def configs_enable(access_token, config_id):
     results = requests_post(uri, body, headers)
     return results
 
+
 def configs_list(access_token, program_serial_number):
     """ List FlexVM Configurations """
     print('--> List FlexVM Configurations...')
@@ -126,6 +133,7 @@ def configs_list(access_token, program_serial_number):
 
     results = requests_post(uri, body, headers)
     return results
+
 
 def configs_update(access_token, config_id, name, cpu, svc_package):
     """ Update FlexVM Configuration """
@@ -153,6 +161,7 @@ def configs_update(access_token, config_id, name, cpu, svc_package):
     results = requests_post(uri, body, headers)
     return results
 
+
 def vms_create(access_token, config_id, count, description, end_date):
     """ Create FlexVM Virtual Machines """
     print('--> Create FlexVM Virtual Machines...')
@@ -171,6 +180,7 @@ def vms_create(access_token, config_id, count, description, end_date):
     results = requests_post(uri, body, headers)
     return results
 
+
 def vms_list(access_token, config_id):
     """ List FlexVM Virtual Machines """
     print('--> List FlexVM Virtual Machines...')
@@ -185,6 +195,7 @@ def vms_list(access_token, config_id):
 
     results = requests_post(uri, body, headers)
     return results
+
 
 def vms_points_by_config_id(access_token, config_id, start_date, end_date):
     """ Retrieve FlexVM Virtual Machines Points by Configuration ID """
@@ -203,6 +214,7 @@ def vms_points_by_config_id(access_token, config_id, start_date, end_date):
     results = requests_post(uri, body, headers)
     return results
 
+
 def vms_points_by_serial_number(access_token, vm_serial_number, start_date, end_date):
     """ Retrieve FlexVM Virtual Machines Points by Configuration ID """
     print('--> Retrieve FlexVM Virtual Machines Points by Configuration ID...')
@@ -219,6 +231,7 @@ def vms_points_by_serial_number(access_token, vm_serial_number, start_date, end_
 
     results = requests_post(uri, body, headers)
     return results
+
 
 def vms_update(access_token, vm_serial_number, config_id, description, end_date):
     """ Update FlexVM Virtual Machine """
@@ -265,6 +278,7 @@ def vms_update(access_token, vm_serial_number, config_id, description, end_date)
 
     return results
 
+
 def vms_reactivate(access_token, vm_serial_number):
     """ Reactivate FlexVM Virtual Machines """
     print('--> Reactivate FlexVM Virtual Machines...')
@@ -282,6 +296,7 @@ def vms_reactivate(access_token, vm_serial_number):
     results = requests_post(uri, body, headers)
     return results
 
+
 def vms_stop(access_token, vm_serial_number):
     """ Stop FlexVM Virtual Machines """
     print('--> Stop FlexVM Virtual Machines...')
@@ -296,6 +311,7 @@ def vms_stop(access_token, vm_serial_number):
 
     results = requests_post(uri, body, headers)
     return results
+
 
 def vms_token(access_token, vm_serial_number):
     """ Retrieve FlexVM Virtual Machines Token """
@@ -316,8 +332,8 @@ def vms_token(access_token, vm_serial_number):
 if __name__ == "__main__":
 
     # Get API Token
-    API_USERNAME = "api-username-goes-here"
-    API_PASSWORD = "api-password-goes-here"
+    API_USERNAME = "20337AA1-0E38-40D9-B9FB-AAF5AAED46A8"
+    API_PASSWORD = "c2b004d8c2cbc734e3e52f33115599a3!1Aa"
     CLIENT_ID = "flexvm"
     GRANT_TYPE = "password"
     api_token = get_token(
@@ -332,9 +348,9 @@ if __name__ == "__main__":
 
     # # FlexVM Programs
     # List FlexVM Programs
-    # programs_list = programs_list(api_access_token)
-    # if programs_list:
-    #     print(programs_list)
+    programs_list = programs_list(api_access_token)
+    if programs_list:
+        print(programs_list)
 
     # # FlexVM Configurations
     # List FlexVM Configurations
