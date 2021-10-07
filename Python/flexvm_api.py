@@ -46,7 +46,6 @@ def get_token(username, password, client_id, grant_type):
     return results
 
 
-
 def programs_list(access_token):
     """ Retrieve FlexVM Programs List """
     print('--> Retrieving FlexVM Programs...')
@@ -285,7 +284,7 @@ def vms_reactivate(access_token, vm_serial_number):
 
     uri = FLEXVM_API_BASE_URI + 'vms/reactivate'
     headers = {
-        'Content-type':'application/json',
+        'Content-type': 'application/json',
         'Accept': 'application/json',
         'Authorization': 'Bearer {0}'.format(access_token)
     }
