@@ -18,3 +18,17 @@ jobs:
           VALIDATE_PYTHON_ISORT: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.x'
+          # Optional - x64 or x86 architecture, defaults to x64
+          architecture: 'x64'
+
+      - name: Install skencli
+        run: pip3 install --upgrade skencli
+
+      - name: Run skencli
+        run: skencli
