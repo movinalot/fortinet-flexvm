@@ -14,4 +14,4 @@ jobs:
     - name: SAST
       run: |
         docker pull registry.fortinet.com/fortidevsec/fdevsec_sast:latest
-        docker run -rm -mount type=bind,source=$PWD,target=/scan registry.fortinet.com/fortidevsec/fdevsec_sast:latest
+        docker run --rm --mount type=bind,source=$PWD,target=/scan https://registry.fortinet.com/fortidevsec/fdevsec_sast:latest
