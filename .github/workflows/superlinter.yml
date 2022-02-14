@@ -26,9 +26,3 @@ jobs:
           python-version: '3.x'
           # Optional - x64 or x86 architecture, defaults to x64
           architecture: 'x64'
-
-      - name: Install skencli
-        run: pip3 install --upgrade skencli
-
-      - name: Run skencli
-        run: skencli
