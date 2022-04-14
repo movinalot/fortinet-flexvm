@@ -24,6 +24,10 @@ All of the requests have a sample body, except for the *list* request in the **P
   - disable - Disable a Configuration
   - enable - Enable a Configuration
 
+- Groups
+  - list - Get list of Flex VM Token Groups (folders under "My Assets" support.fortinet.com)
+  - nexttoken - Get next unused token in specified Group
+
 - Programs
   - list - Get list of Flex VM Programs for the account
 
@@ -35,5 +39,5 @@ All of the requests have a sample body, except for the *list* request in the **P
   - reactivate - Reactivate a VM entitlement after being stopped
   - token - Regenerate token for a VM
   - points by serial number - Get point usage for a VM by serial number
-  - points by config id - Get point usage for VMs by config id
+  - points by config ID - Get point usage for VMs by config ID
   

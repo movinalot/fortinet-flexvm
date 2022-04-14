@@ -8,6 +8,7 @@
 
 import json
 import requests
+import os
 
 FLEXVM_API_BASE_URI = "https://support.fortinet.com/ES/api/flexvm/v1/"
 
@@ -42,6 +43,7 @@ def get_token(username, password, client_id, grant_type):
     }
 
     results = requests_post(uri, body, COMMON_HEADERS)
+    print(body,results)
     return results
 
 
@@ -57,7 +59,7 @@ def programs_list(access_token):
     return results
 
 
-def configs_create(access_token, program_serial_number, name, cpus, svc_package):
+def configs_create(access_token, program_serial_number, name, product_type, cpus, svc_package):
     """Create FlexVM Configuration"""
     print("--> Create FlexVM Configuration...")
 
@@ -68,7 +70,7 @@ def configs_create(access_token, program_serial_number, name, cpus, svc_package)
     body = {
         "programSerialNumber": program_serial_number,
         "name": name,
-        "productTypeId": 1,
+        "productTypeId": product_type,
         "parameters": [{"id": 1, "value": cpus}, {"id": 2, "value": svc_package}],
     }
 
@@ -131,6 +133,30 @@ def configs_update(access_token, config_id, name, cpu, svc_package):
         "name": name,
         "parameters": [{"id": 1, "value": cpu}, {"id": 2, "value": svc_package}],
     }
+
+    results = requests_post(uri, body, headers)
+    return results
+
+def groups_list(access_token):
+    """Retrieve FlexVM Programs List"""
+    print("--> Retrieving FlexVM Groups...")
+
+    uri = FLEXVM_API_BASE_URI + "groups/list"
+    headers = COMMON_HEADERS.copy()
+    headers["Authorization"] = "Bearer {0}".format(access_token)
+
+    results = requests_post(uri, "", headers)
+    return results
+
+def groups_nexttoken(access_token, folder_path):
+    """Get FlexVM Group Next Token"""
+    print("--> Get FlexVM Group Next Token...")
+
+    uri = FLEXVM_API_BASE_URI + "groups/nexttoken"
+    headers = COMMON_HEADERS.copy()
+    headers["Authorization"] = "Bearer {0}".format(access_token)
+
+    body = {"folderPath": folder_path}
 
     results = requests_post(uri, body, headers)
     return results
@@ -252,11 +278,8 @@ def vms_reactivate(access_token, vm_serial_number):
     print("--> Reactivate FlexVM Virtual Machines...")
 
     uri = FLEXVM_API_BASE_URI + "vms/reactivate"
-    headers = {
-        "Content-type": "application/json",
-        "Accept": "application/json",
-        "Authorization": "Bearer {0}".format(access_token),
-    }
+    headers = COMMON_HEADERS.copy()
+    headers["Authorization"] = "Bearer {0}".format(access_token)
     body = {"serialNumber": vm_serial_number}
 
     results = requests_post(uri, body, headers)
@@ -293,15 +316,21 @@ def vms_token(access_token, vm_serial_number):
 
 if __name__ == "__main__":
 
+    # Set credentials in enviroment or locally
+    API_USERNAME = os.getenv('API_USERNAME', "api-username-goes-here")
+    API_PASSWORD = os.getenv('API_PASSWORD', "api-password-goes-here")
+    API_CLIENT_ID = os.getenv('API_CLIENT_ID', "flexvm")
+    API_GRANT_TYPE = os.getenv('API_GRANT_TYPE', "password")
+
     # Get API Token
-    API_USERNAME = "api-username-goes-here"
-    API_PASSWORD = "api-password-goes-here"
-    CLIENT_ID = "flexvm"
-    GRANT_TYPE = "password"
-    api_token = get_token(API_USERNAME, API_PASSWORD, CLIENT_ID, GRANT_TYPE)
+    print(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
+    api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
     if api_token:
         print(api_token["access_token"])
         api_access_token = api_token["access_token"]
+    else:
+        print("error retreiving api access token")
+        exit(-1)
 
     # # FlexVM Programs
     # List FlexVM Programs
@@ -311,7 +340,7 @@ if __name__ == "__main__":
 
     # # FlexVM Configurations
     # List FlexVM Configurations
-    # PROGRAM_SERIAL_NUMBER = 'ELAVMS0000000198'
+    # PROGRAM_SERIAL_NUMBER = 'ELAVMS0000000000'
     # config_list = configs_list(
     #     api_access_token,
     #     PROGRAM_SERIAL_NUMBER
@@ -321,12 +350,14 @@ if __name__ == "__main__":
 
     # # Create FlexVM Configuration
     # CONFIG_NAME = "create_config"
+    # PRODUCT_TYPE_ID = 1 # FortiGate -> 1 FortiWeb -> 3
     # CONFIG_CPUS = 4
-    # CONFIG_SVC_PACKAGE = "UTM" # 360, ENT, UTM, FC
+    # CONFIG_SVC_PACKAGE = "UTM" # FortiGate -> ENT, UTM, FC FortiWeb -> FWBSTD, FWBADV
     # config_create = configs_create(
     #     api_access_token,
     #     PROGRAM_SERIAL_NUMBER,
     #     CONFIG_NAME,
+    #     PRODUCT_TYPE_ID,
     #     CONFIG_CPUS,
     #     CONFIG_SVC_PACKAGE
     # )
@@ -355,7 +386,7 @@ if __name__ == "__main__":
     # # Update FlexVM Configuration
     # CONFIG_NAME = "update_config"
     # CONFIG_CPUS = 2
-    # CONFIG_SVC_PACKAGE = "360" # 360, ENT, UTM, FC
+    # CONFIG_SVC_PACKAGE = "ENT" # FortiGate -> ENT, UTM, FC fotiWeb -> FWBSTD
     # CONFIG_ID = 584
     # config_update = configs_update(
     #     api_access_token,
@@ -366,6 +397,21 @@ if __name__ == "__main__":
     # )
     # if config_update:
     #     print(config_update)
+
+    # List FlexVM Groups
+    groups_list = groups_list(api_access_token)
+    if groups_list:
+        print(groups_list)
+
+    # Reactivate FlexVM Virtual Machine
+    FOLDER_PATH = 'My Assets'
+    groups_nexttoken = groups_nexttoken(
+        api_access_token,
+        FOLDER_PATH
+    )
+
+    if groups_nexttoken:
+        print(groups_nexttoken)
 
     # # FlexVM Virtual Machines
     # List FlexVM VMs
