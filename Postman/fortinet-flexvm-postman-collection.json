@@ -9,55 +9,6 @@
 			"name": "Configurations",
 			"item": [
 				{
-					"name": "list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								},
-								{
-									"key": "password",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"programSerialNumber\": \"XXXXXX0000000000\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/configs/list",
-							"protocol": "https",
-							"host": [
-								"support",
-								"fortinet",
-								"com"
-							],
-							"path": [
-								"ES",
-								"api",
-								"flexvm",
-								"v1",
-								"configs",
-								"list"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "create",
 					"request": {
 						"auth": {
@@ -74,7 +25,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"programSerialNumber\": \"XXXXXX0000000000\",\n    \"name\": \"VM04 UTM\",\n    \"productTypeId\": 1,\n    \"parameters\": [\n        {\n            \"id\": 1,\n            \"value\": \"4\"\n        },\n        {\n            \"id\": 2,\n            \"value\": \"UTM\"\n        }\n    ]\n}",
+							"raw": "{\n    \"programSerialNumber\": \"ELAVMSXXXXXXXXX\",\n    \"name\": \"VM04 UTM\",\n    \"productTypeId\": 1,\n    \"parameters\": [\n        {\n            \"id\": 1,\n            \"value\": \"4\"\n        },\n        {\n            \"id\": 2,\n            \"value\": \"UTM\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -102,50 +53,6 @@
 					"response": []
 				},
 				{
-					"name": "update",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": 442,\n    \"name\": \"VM04 UTM\",\n    \"parameters\": [\n        {\n            \"id\": 1,\n            \"value\": \"4\"\n        },\n        {\n            \"id\": 2,\n            \"value\": \"UTM\"\n        }\n    ]\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/configs/update",
-							"protocol": "https",
-							"host": [
-								"support",
-								"fortinet",
-								"com"
-							],
-							"path": [
-								"ES",
-								"api",
-								"flexvm",
-								"v1",
-								"configs",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "disable",
 					"request": {
 						"auth": {
@@ -162,7 +69,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 442\n}",
+							"raw": "{\n    \"id\": \"000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -206,7 +113,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 442\n}",
+							"raw": "{\n    \"id\": \"000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -228,6 +135,183 @@
 								"v1",
 								"configs",
 								"enable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"programSerialNumber\": \"ELAVMSXXXXXXXXX\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/configs/list",
+							"protocol": "https",
+							"host": [
+								"support",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"ES",
+								"api",
+								"flexvm",
+								"v1",
+								"configs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"000\",\n    \"name\": \"VM04 UTM\",\n    \"parameters\": [\n        {\n            \"id\": 1,\n            \"value\": \"4\"\n        },\n        {\n            \"id\": 2,\n            \"value\": \"UTM\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/configs/update",
+							"protocol": "https",
+							"host": [
+								"support",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"ES",
+								"api",
+								"flexvm",
+								"v1",
+								"configs",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/groups/list",
+							"protocol": "https",
+							"host": [
+								"support",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"ES",
+								"api",
+								"flexvm",
+								"v1",
+								"groups",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nexttoken",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"folderPath\": \"My Assets\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/groups/nexttoken",
+							"protocol": "https",
+							"host": [
+								"support",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"ES",
+								"api",
+								"flexvm",
+								"v1",
+								"groups",
+								"nexttoken"
 							]
 						}
 					},
@@ -336,50 +420,6 @@
 			"name": "Virtual Machines",
 			"item": [
 				{
-					"name": "list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"configId\": \"442\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/list",
-							"protocol": "https",
-							"host": [
-								"support",
-								"fortinet",
-								"com"
-							],
-							"path": [
-								"ES",
-								"api",
-								"flexvm",
-								"v1",
-								"vms",
-								"list"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "create",
 					"request": {
 						"auth": {
@@ -396,7 +436,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"configId\": 442,\n    \"count\": 2,\n    \"description\": \"VM04 UTM\",\n    \"endDate\": \"2021-10-11 00:00:00\"\n}",
+							"raw": "{\n    \"configId\": \"000\",\n    \"count\": \"2\",\n    \"description\": \"VM04 UTM\",\n    \"endDate\": \"YYYY-MM-DD\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -424,7 +464,7 @@
 					"response": []
 				},
 				{
-					"name": "update",
+					"name": "list",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -440,7 +480,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"serialNumber\": \"FGVXXXXX00000000\",\n    \"configId\": 442,\n    \"description\": \"Azure VM04 UTM\",\n    \"endDate\": \"2021-11-30\"\n}",
+							"raw": "{\n    \"configId\": \"000\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -448,7 +488,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/update",
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/list",
 							"protocol": "https",
 							"host": [
 								"support",
@@ -461,51 +501,7 @@
 								"flexvm",
 								"v1",
 								"vms",
-								"update"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "stop",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"serialNumber\": \"FGVXXXXX00000000\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/stop",
-							"protocol": "https",
-							"host": [
-								"support",
-								"fortinet",
-								"com"
-							],
-							"path": [
-								"ES",
-								"api",
-								"flexvm",
-								"v1",
-								"vms",
-								"stop"
+								"list"
 							]
 						}
 					},
@@ -528,7 +524,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"serialNumber\": \"FGVXXXXX00000000\"\n}",
+							"raw": "{\n    \"serialNumber\": \"FGVXXXXXXXXXXXXX\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -556,6 +552,138 @@
 					"response": []
 				},
 				{
+					"name": "points by config id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"configId\": \"000\",\n    \"startDate\": \"YYYY-MM-DD\",\n    \"endDate\": \"YYYY-MM-DD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/points",
+							"protocol": "https",
+							"host": [
+								"support",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"ES",
+								"api",
+								"flexvm",
+								"v1",
+								"vms",
+								"points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "points by serial number",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"FGVXXXXXXXXXXXXX\",\n    \"startDate\": \"YYYY-MM-DD\",\n    \"endDate\": \"YYYY-MM-DD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/points",
+							"protocol": "https",
+							"host": [
+								"support",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"ES",
+								"api",
+								"flexvm",
+								"v1",
+								"vms",
+								"points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"FGVXXXXXXXXXXXXX\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/stop",
+							"protocol": "https",
+							"host": [
+								"support",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"ES",
+								"api",
+								"flexvm",
+								"v1",
+								"vms",
+								"stop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "token",
 					"request": {
 						"auth": {
@@ -572,7 +700,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"serialNumber\": \"FGVXXXXX00000000\"\n}",
+							"raw": "{\n    \"serialNumber\": \"FGVXXXXXXXXXXXXX\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -600,7 +728,7 @@
 					"response": []
 				},
 				{
-					"name": "points by serial number",
+					"name": "update",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -616,7 +744,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"serialNumber\": \"FGVXXXXX00000000\",\n    \"startDate\": \"2020-10-01\",\n    \"endDate\": \"2021-12-31\"\n}",
+							"raw": "{\n    \"serialNumber\": \"FGVXXXXXXXXXXXXX\",\n    \"configId\": \"000\",\n    \"description\": \"VM04 UTM\",\n    \"endDate\": \"YYYY-MM-DD\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -624,7 +752,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/points",
+							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/update",
 							"protocol": "https",
 							"host": [
 								"support",
@@ -637,51 +765,7 @@
 								"flexvm",
 								"v1",
 								"vms",
-								"points"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "points by config id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"configId\": 442,\n    \"startDate\": \"2020-10-01\",\n    \"endDate\": \"2021-12-31\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "https://support.fortinet.com/ES/api/flexvm/v1/vms/points",
-							"protocol": "https",
-							"host": [
-								"support",
-								"fortinet",
-								"com"
-							],
-							"path": [
-								"ES",
-								"api",
-								"flexvm",
-								"v1",
-								"vms",
-								"points"
+								"update"
 							]
 						}
 					},
