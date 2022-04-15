@@ -7,8 +7,9 @@
 """
 
 import json
-import requests
 import os
+import sys
+import requests
 
 FLEXVM_API_BASE_URI = "https://support.fortinet.com/ES/api/flexvm/v1/"
 
@@ -43,7 +44,6 @@ def get_token(username, password, client_id, grant_type):
     }
 
     results = requests_post(uri, body, COMMON_HEADERS)
-    print(body,results)
     return results
 
 
@@ -137,6 +137,7 @@ def configs_update(access_token, config_id, name, cpu, svc_package):
     results = requests_post(uri, body, headers)
     return results
 
+
 def groups_list(access_token):
     """Retrieve FlexVM Programs List"""
     print("--> Retrieving FlexVM Groups...")
@@ -147,6 +148,7 @@ def groups_list(access_token):
 
     results = requests_post(uri, "", headers)
     return results
+
 
 def groups_nexttoken(access_token, folder_path):
     """Get FlexVM Group Next Token"""
@@ -280,6 +282,7 @@ def vms_reactivate(access_token, vm_serial_number):
     uri = FLEXVM_API_BASE_URI + "vms/reactivate"
     headers = COMMON_HEADERS.copy()
     headers["Authorization"] = "Bearer {0}".format(access_token)
+
     body = {"serialNumber": vm_serial_number}
 
     results = requests_post(uri, body, headers)
@@ -323,14 +326,12 @@ if __name__ == "__main__":
     API_GRANT_TYPE = os.getenv('API_GRANT_TYPE', "password")
 
     # Get API Token
-    print(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
     api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
     if api_token:
         print(api_token["access_token"])
         api_access_token = api_token["access_token"]
     else:
-        print("error retreiving api access token")
-        exit(-1)
+        sys.exit("error retreiving api access token")
 
     # # FlexVM Programs
     # List FlexVM Programs
@@ -398,20 +399,20 @@ if __name__ == "__main__":
     # if config_update:
     #     print(config_update)
 
-    # List FlexVM Groups
-    groups_list = groups_list(api_access_token)
-    if groups_list:
-        print(groups_list)
+    # # List FlexVM Groups
+    # groups_list = groups_list(api_access_token)
+    # if groups_list:
+    #     print(groups_list)
 
-    # Reactivate FlexVM Virtual Machine
-    FOLDER_PATH = 'My Assets'
-    groups_nexttoken = groups_nexttoken(
-        api_access_token,
-        FOLDER_PATH
-    )
+    # # Reactivate FlexVM Virtual Machine
+    # FOLDER_PATH = 'My Assets'
+    # groups_nexttoken = groups_nexttoken(
+    #     api_access_token,
+    #     FOLDER_PATH
+    # )
 
-    if groups_nexttoken:
-        print(groups_nexttoken)
+    # if groups_nexttoken:
+    #     print(groups_nexttoken)
 
     # # FlexVM Virtual Machines
     # List FlexVM VMs
