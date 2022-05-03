@@ -59,7 +59,9 @@ def programs_list(access_token):
     return results
 
 
-def configs_create(access_token, program_serial_number, name, product_type, cpus, svc_package):
+def configs_create(
+    access_token, program_serial_number, name, product_type, cpus, svc_package
+):
     """Create FlexVM Configuration"""
     print("--> Create FlexVM Configuration...")
 
@@ -320,13 +322,13 @@ def vms_token(access_token, vm_serial_number):
 if __name__ == "__main__":
 
     # Set credentials in enviroment or locally
-    API_USERNAME = os.getenv('API_USERNAME', "api-username-goes-here")
-    API_PASSWORD = os.getenv('API_PASSWORD', "api-password-goes-here")
-    API_CLIENT_ID = os.getenv('API_CLIENT_ID', "flexvm")
-    API_GRANT_TYPE = os.getenv('API_GRANT_TYPE', "password")
+    API_USERNAME = os.getenv("API_USERNAME", "api-username-goes-here")
+    API_PASSWORD = os.getenv("API_PASSWORD", "api-password-goes-here")
+    API_CLIENT_ID = os.getenv("API_CLIENT_ID", "flexvm")
+    API_GRANT_TYPE = os.getenv("API_GRANT_TYPE", "password")
 
-    password = "password"
-    username = "username"
+    PASSWORD = "password"
+    USERNAME = "username"
 
     # Get API Token
     api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
