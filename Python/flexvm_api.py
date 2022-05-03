@@ -328,7 +328,7 @@ if __name__ == "__main__":
     API_GRANT_TYPE = os.getenv("API_GRANT_TYPE", "password")
 
     PASSWORD = "password"
-    USERNAME = "username"
+    USERNAME = "jmcdonough"
 
     # Get API Token
     api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
