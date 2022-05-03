@@ -325,6 +325,9 @@ if __name__ == "__main__":
     API_CLIENT_ID = os.getenv('API_CLIENT_ID', "flexvm")
     API_GRANT_TYPE = os.getenv('API_GRANT_TYPE', "password")
 
+    password = "password"
+    username = "username"
+
     # Get API Token
     api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
     if api_token:
