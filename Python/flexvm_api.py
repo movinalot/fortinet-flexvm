@@ -329,6 +329,7 @@ if __name__ == "__main__":
 
     PASSWORD = "password"
     USERNAME = "jmcdonough"
+    TOKEN    = "my-user-token"
 
     # Get API Token
     api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
