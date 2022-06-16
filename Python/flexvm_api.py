@@ -3,7 +3,7 @@
     John McDonough (@movinalot)
     Fortinet
 
-    Checked by sken.ai
+    Checked by FortiDevSec
 """
 
 import json
@@ -327,9 +327,9 @@ if __name__ == "__main__":
     API_CLIENT_ID = os.getenv("API_CLIENT_ID", "flexvm")
     API_GRANT_TYPE = os.getenv("API_GRANT_TYPE", "password")
 
-    PASSWORD = "password"
-    USERNAME = "jmcdonough"
-    TOKEN    = "my-user-token"
+    # PASSWORD = "password"
+    # USERNAME = "jmcdonough"
+    # TOKEN    = "my-user-token"
 
     # Get API Token
     api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
