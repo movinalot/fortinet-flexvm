@@ -9,32 +9,43 @@
 import json
 import os
 import sys
+import logging
 import requests
 
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
 FLEXVM_API_BASE_URI = "https://support.fortinet.com/ES/api/flexvm/v1/"
+FORTICARE_AUTH_URI = "https://customerapiauth.fortinet.com/api/v1/oauth/token/"
 
 COMMON_HEADERS = {"Content-type": "application/json", "Accept": "application/json"}
 
 
 def requests_post(resource_url, json_body, headers):
     """Requests Post"""
+
+    logging.debug(resource_url)
+    logging.debug(json_body)
+    logging.debug(headers)
+
     try:
         result = requests.post(resource_url, json=json_body, headers=headers)
     except requests.exceptions.RequestException as error:
         raise SystemExit(error) from error
     if result.ok:
-        json_data = json.loads(result.content)
-        return_value = json_data
+        return_value = json.loads(result.content)
     else:
+        logging.debug(result)
+        logging.debug(result.content)
         return_value = None
     return return_value
 
 
 def get_token(username, password, client_id, grant_type):
     """Get Authentication Token"""
-    print("--> Retieving FlexVM API Token...")
 
-    uri = "https://customerapiauth.fortinet.com/api/v1/oauth/token/"
+    logging.debug(username, password, client_id, grant_type)
+    logging.debug("--> Retieving FlexVM API Token...")
 
     body = {
         "username": username,
@@ -43,13 +54,15 @@ def get_token(username, password, client_id, grant_type):
         "grant_type": grant_type,
     }
 
-    results = requests_post(uri, body, COMMON_HEADERS)
+    results = requests_post(FORTICARE_AUTH_URI, body, COMMON_HEADERS)
     return results
 
 
 def programs_list(access_token):
     """Retrieve FlexVM Programs List"""
-    print("--> Retrieving FlexVM Programs...")
+
+    logging.debug(access_token)
+    logging.debug("--> Retrieving FlexVM Programs...")
 
     uri = FLEXVM_API_BASE_URI + "programs/list"
     headers = COMMON_HEADERS.copy()
@@ -63,7 +76,7 @@ def configs_create(
     access_token, program_serial_number, name, product_type, cpus, svc_package
 ):
     """Create FlexVM Configuration"""
-    print("--> Create FlexVM Configuration...")
+    logging.debug("--> Create FlexVM Configuration...")
 
     uri = FLEXVM_API_BASE_URI + "configs/create"
     headers = COMMON_HEADERS.copy()
@@ -82,7 +95,7 @@ def configs_create(
 
 def configs_disable(access_token, config_id):
     """Disable FlexVM Configuration"""
-    print("--> Disable FlexVM Configuration...")
+    logging.debug("--> Disable FlexVM Configuration...")
 
     uri = FLEXVM_API_BASE_URI + "configs/disable"
     headers = COMMON_HEADERS.copy()
@@ -96,7 +109,7 @@ def configs_disable(access_token, config_id):
 
 def configs_enable(access_token, config_id):
     """Enable FlexVM Configuration"""
-    print("--> Enable FlexVM Configuration...")
+    logging.debug("--> Enable FlexVM Configuration...")
 
     uri = FLEXVM_API_BASE_URI + "configs/enable"
     headers = COMMON_HEADERS.copy()
@@ -110,7 +123,7 @@ def configs_enable(access_token, config_id):
 
 def configs_list(access_token, program_serial_number):
     """List FlexVM Configurations"""
-    print("--> List FlexVM Configurations...")
+    logging.debug("--> List FlexVM Configurations...")
 
     uri = FLEXVM_API_BASE_URI + "configs/list"
     headers = COMMON_HEADERS.copy()
@@ -124,7 +137,7 @@ def configs_list(access_token, program_serial_number):
 
 def configs_update(access_token, config_id, name, cpu, svc_package):
     """Update FlexVM Configuration"""
-    print("--> Update FlexVM Configuration...")
+    logging.debug("--> Update FlexVM Configuration...")
 
     uri = FLEXVM_API_BASE_URI + "configs/update"
     headers = COMMON_HEADERS.copy()
@@ -142,7 +155,7 @@ def configs_update(access_token, config_id, name, cpu, svc_package):
 
 def groups_list(access_token):
     """Retrieve FlexVM Programs List"""
-    print("--> Retrieving FlexVM Groups...")
+    logging.debug("--> Retrieving FlexVM Groups...")
 
     uri = FLEXVM_API_BASE_URI + "groups/list"
     headers = COMMON_HEADERS.copy()
@@ -154,7 +167,7 @@ def groups_list(access_token):
 
 def groups_nexttoken(access_token, folder_path):
     """Get FlexVM Group Next Token"""
-    print("--> Get FlexVM Group Next Token...")
+    logging.debug("--> Get FlexVM Group Next Token...")
 
     uri = FLEXVM_API_BASE_URI + "groups/nexttoken"
     headers = COMMON_HEADERS.copy()
@@ -168,7 +181,7 @@ def groups_nexttoken(access_token, folder_path):
 
 def vms_create(access_token, config_id, count, description, end_date):
     """Create FlexVM Virtual Machines"""
-    print("--> Create FlexVM Virtual Machines...")
+    logging.debug("--> Create FlexVM Virtual Machines...")
 
     uri = FLEXVM_API_BASE_URI + "vms/create"
     headers = COMMON_HEADERS.copy()
@@ -187,7 +200,7 @@ def vms_create(access_token, config_id, count, description, end_date):
 
 def vms_list(access_token, config_id):
     """List FlexVM Virtual Machines"""
-    print("--> List FlexVM Virtual Machines...")
+    logging.debug("--> List FlexVM Virtual Machines...")
 
     uri = FLEXVM_API_BASE_URI + "vms/list"
     headers = COMMON_HEADERS.copy()
@@ -201,7 +214,7 @@ def vms_list(access_token, config_id):
 
 def vms_points_by_config_id(access_token, config_id, start_date, end_date):
     """Retrieve FlexVM Virtual Machines Points by Configuration ID"""
-    print("--> Retrieve FlexVM Virtual Machines Points by Configuration ID...")
+    logging.debug("--> Retrieve FlexVM Virtual Machines Points by Configuration ID...")
 
     uri = FLEXVM_API_BASE_URI + "vms/points"
     headers = COMMON_HEADERS.copy()
@@ -215,7 +228,7 @@ def vms_points_by_config_id(access_token, config_id, start_date, end_date):
 
 def vms_points_by_serial_number(access_token, vm_serial_number, start_date, end_date):
     """Retrieve FlexVM Virtual Machines Points by Configuration ID"""
-    print("--> Retrieve FlexVM Virtual Machines Points by Configuration ID...")
+    logging.debug("--> Retrieve FlexVM Virtual Machines Points by Configuration ID...")
 
     uri = FLEXVM_API_BASE_URI + "vms/points"
     headers = COMMON_HEADERS.copy()
@@ -233,14 +246,14 @@ def vms_points_by_serial_number(access_token, vm_serial_number, start_date, end_
 
 def vms_update(access_token, vm_serial_number, config_id, description, end_date):
     """Update FlexVM Virtual Machine"""
-    print("--> Update FlexVM Virtual Machine...")
+    logging.debug("--> Update FlexVM Virtual Machine...")
 
     # Only Active Virtual Machines can be updated
     process_update = False
     vm_status = "Not Found"
     vm_list = vms_list(access_token, config_id)
     if vm_list:
-        print(vm_list)
+        logging.debug(vm_list)
         for virtual_machine in vm_list["vms"]:
             if (
                 virtual_machine["serialNumber"] == vm_serial_number
@@ -279,7 +292,7 @@ def vms_update(access_token, vm_serial_number, config_id, description, end_date)
 
 def vms_reactivate(access_token, vm_serial_number):
     """Reactivate FlexVM Virtual Machines"""
-    print("--> Reactivate FlexVM Virtual Machines...")
+    logging.debug("--> Reactivate FlexVM Virtual Machines...")
 
     uri = FLEXVM_API_BASE_URI + "vms/reactivate"
     headers = COMMON_HEADERS.copy()
@@ -293,7 +306,7 @@ def vms_reactivate(access_token, vm_serial_number):
 
 def vms_stop(access_token, vm_serial_number):
     """Stop FlexVM Virtual Machines"""
-    print("--> Stop FlexVM Virtual Machines...")
+    logging.debug("--> Stop FlexVM Virtual Machines...")
 
     uri = FLEXVM_API_BASE_URI + "vms/stop"
     headers = COMMON_HEADERS.copy()
@@ -307,7 +320,7 @@ def vms_stop(access_token, vm_serial_number):
 
 def vms_token(access_token, vm_serial_number):
     """Retrieve FlexVM Virtual Machines Token"""
-    print("--> Retrieve FlexVM Virtual Machines Token...")
+    logging.debug("--> Retrieve FlexVM Virtual Machines Token...")
 
     uri = FLEXVM_API_BASE_URI + "vms/token"
     headers = COMMON_HEADERS.copy()
@@ -327,26 +340,24 @@ if __name__ == "__main__":
     API_CLIENT_ID = os.getenv("API_CLIENT_ID", "flexvm")
     API_GRANT_TYPE = os.getenv("API_GRANT_TYPE", "password")
 
-    PASSWORD = "password"
-    USERNAME = "jmcdonough"
-    TOKEN    = "my-user-token"
-
     # Get API Token
     api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
     if api_token:
-        print(api_token["access_token"])
+        LOG_MESSAGE = "API access_token: {0}".format(api_token["access_token"])
+        logging.debug(LOG_MESSAGE)
         api_access_token = api_token["access_token"]
     else:
         sys.exit("error retreiving api access token")
 
-    # # FlexVM Programs
+    # ### FlexVM Programs ###
     # List FlexVM Programs
     programs_list = programs_list(api_access_token)
     if programs_list:
         print(programs_list)
 
-    # # FlexVM Configurations
-    # List FlexVM Configurations
+    # ### FlexVM Configurations ###
+    # # List FlexVM Configurations
+    #
     # PROGRAM_SERIAL_NUMBER = 'ELAVMS0000000000'
     # config_list = configs_list(
     #     api_access_token,
@@ -405,12 +416,13 @@ if __name__ == "__main__":
     # if config_update:
     #     print(config_update)
 
+    # ### FlexVM Groups ###
     # # List FlexVM Groups
     # groups_list = groups_list(api_access_token)
     # if groups_list:
     #     print(groups_list)
 
-    # # Reactivate FlexVM Virtual Machine
+    # # Get FlexVM Group Next Token
     # FOLDER_PATH = 'My Assets'
     # groups_nexttoken = groups_nexttoken(
     #     api_access_token,
@@ -420,7 +432,7 @@ if __name__ == "__main__":
     # if groups_nexttoken:
     #     print(groups_nexttoken)
 
-    # # FlexVM Virtual Machines
+    # ### FlexVM Virtual Machines ###
     # List FlexVM VMs
     # CONFIG_ID = 584
     # vm_list = vms_list(api_access_token, CONFIG_ID)
