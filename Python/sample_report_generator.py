@@ -1,3 +1,9 @@
+
+#
+# Sample report generator
+#
+# Based on FlexVM API, created by John McDonough (@movinalot) - Fortinet
+
 import pandas as pd
 import requests
 import json
