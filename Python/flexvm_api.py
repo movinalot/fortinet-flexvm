@@ -6,6 +6,8 @@
     Checked by FortiDevSec
 """
 
+# pylint: disable=too-many-arguments
+
 import json
 import os
 import sys
@@ -29,7 +31,7 @@ def requests_post(resource_url, json_body, headers):
     logging.debug(headers)
 
     try:
-        result = requests.post(resource_url, json=json_body, headers=headers)
+        result = requests.post(resource_url, json=json_body, headers=headers, timeout=20)
     except requests.exceptions.RequestException as error:
         raise SystemExit(error) from error
     if result.ok:
@@ -66,7 +68,7 @@ def programs_list(access_token):
 
     uri = FLEXVM_API_BASE_URI + "programs/list"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     results = requests_post(uri, "", headers)
     return results
@@ -80,7 +82,7 @@ def configs_create(
 
     uri = FLEXVM_API_BASE_URI + "configs/create"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {
         "programSerialNumber": program_serial_number,
@@ -99,7 +101,7 @@ def configs_disable(access_token, config_id):
 
     uri = FLEXVM_API_BASE_URI + "configs/disable"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"id": config_id}
 
@@ -113,7 +115,7 @@ def configs_enable(access_token, config_id):
 
     uri = FLEXVM_API_BASE_URI + "configs/enable"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"id": config_id}
 
@@ -127,7 +129,7 @@ def configs_list(access_token, program_serial_number):
 
     uri = FLEXVM_API_BASE_URI + "configs/list"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"programSerialNumber": program_serial_number}
 
@@ -141,7 +143,7 @@ def configs_update(access_token, config_id, name, cpu, svc_package):
 
     uri = FLEXVM_API_BASE_URI + "configs/update"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {
         "id": config_id,
@@ -159,7 +161,7 @@ def groups_list(access_token):
 
     uri = FLEXVM_API_BASE_URI + "groups/list"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     results = requests_post(uri, "", headers)
     return results
@@ -171,7 +173,7 @@ def groups_nexttoken(access_token, folder_path):
 
     uri = FLEXVM_API_BASE_URI + "groups/nexttoken"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"folderPath": folder_path}
 
@@ -185,7 +187,7 @@ def vms_create(access_token, config_id, count, description, end_date):
 
     uri = FLEXVM_API_BASE_URI + "vms/create"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {
         "configId": config_id,
@@ -204,7 +206,7 @@ def vms_list(access_token, config_id):
 
     uri = FLEXVM_API_BASE_URI + "vms/list"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"configId": config_id}
 
@@ -218,7 +220,7 @@ def vms_points_by_config_id(access_token, config_id, start_date, end_date):
 
     uri = FLEXVM_API_BASE_URI + "vms/points"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"configId": config_id, "startDate": start_date, "endDate": end_date}
 
@@ -232,7 +234,7 @@ def vms_points_by_serial_number(access_token, vm_serial_number, start_date, end_
 
     uri = FLEXVM_API_BASE_URI + "vms/points"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {
         "serialNumber": vm_serial_number,
@@ -271,7 +273,7 @@ def vms_update(access_token, vm_serial_number, config_id, description, end_date)
     if process_update:
         uri = FLEXVM_API_BASE_URI + "vms/update"
         headers = COMMON_HEADERS.copy()
-        headers["Authorization"] = "Bearer {0}".format(access_token)
+        headers["Authorization"] = f"Bearer {access_token}"
 
         body = {
             "serialNumber": vm_serial_number,
@@ -296,7 +298,7 @@ def vms_reactivate(access_token, vm_serial_number):
 
     uri = FLEXVM_API_BASE_URI + "vms/reactivate"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"serialNumber": vm_serial_number}
 
@@ -310,7 +312,7 @@ def vms_stop(access_token, vm_serial_number):
 
     uri = FLEXVM_API_BASE_URI + "vms/stop"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"serialNumber": vm_serial_number}
 
@@ -324,7 +326,7 @@ def vms_token(access_token, vm_serial_number):
 
     uri = FLEXVM_API_BASE_URI + "vms/token"
     headers = COMMON_HEADERS.copy()
-    headers["Authorization"] = "Bearer {0}".format(access_token)
+    headers["Authorization"] = f"Bearer {access_token}"
 
     body = {"serialNumber": vm_serial_number}
 
@@ -335,15 +337,18 @@ def vms_token(access_token, vm_serial_number):
 if __name__ == "__main__":
 
     # Set credentials in enviroment or locally
-    API_USERNAME = os.getenv("API_USERNAME", "api-username-goes-here")
-    API_PASSWORD = os.getenv("API_PASSWORD", "api-password-goes-here")
+    FLEXVM_ACCESS_USERNAME = os.getenv("FLEXVM_ACCESS_USERNAME", "api-username-goes-here")
+    FLEXVM_ACCESS_PASSWORD = os.getenv("FLEXVM_ACCESS_PASSWORD", "api-password-goes-here")
     API_CLIENT_ID = os.getenv("API_CLIENT_ID", "flexvm")
     API_GRANT_TYPE = os.getenv("API_GRANT_TYPE", "password")
 
     # Get API Token
-    api_token = get_token(API_USERNAME, API_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE)
+    api_token = get_token(
+        FLEXVM_ACCESS_USERNAME, FLEXVM_ACCESS_PASSWORD, API_CLIENT_ID, API_GRANT_TYPE
+    )
     if api_token:
-        LOG_MESSAGE = "API access_token: {0}".format(api_token["access_token"])
+        api_access_token = api_token["access_token"]
+        LOG_MESSAGE = f"API access_token: {api_access_token}"
         logging.debug(LOG_MESSAGE)
         api_access_token = api_token["access_token"]
     else:
