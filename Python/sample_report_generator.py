@@ -400,7 +400,7 @@ programs = pd.DataFrame(programs_list["programs"])
 
 # Please, replace this variable with the relevant program SN for your environment
 # Example : MY_PROGRAM = 'ELAVMS0000000467'
-MY_PROGRAM = "ELAVMS0000000198"
+MY_PROGRAM = ""
 
 
 # Create a dataframe to store the configs
