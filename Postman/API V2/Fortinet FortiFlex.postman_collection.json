@@ -1,0 +1,759 @@
+{
+	"info": {
+		"_postman_id": "a4a69b10-9ac2-4422-92dd-4eb815933a24",
+		"name": "Fortinet FortiFlex",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17111196"
+	},
+	"item": [
+		{
+			"name": "Configurations",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"programSerialNumber\": \"ELAVMS0000000467\",\n    \"name\": \"VM01 UTM -API test\",\n    \"productTypeId\": 1,\n    \"parameters\": [\n        {\n            \"id\": 1,\n            \"value\": \"1\"\n        },\n        {\n            \"id\": 2,\n            \"value\": \"UTM\"\n        },\n        {\n            \"id\": 10,\n            \"value\": \"2\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/configs/create",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"configs",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "disable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"3224\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/configs/disable",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"configs",
+								"disable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "enable",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"3224\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/configs/enable",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"configs",
+								"enable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var respJsonData = JSON.parse(responseBody)\r",
+									"\r",
+									"if (respJsonData.status == \"success\") {\r",
+									"  pm.environment.set(\"config_ids\", respJsonData.collectionVariables.get(\"id\"))\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"programSerialNumber\": \"{{my_program}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/configs/list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"configs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"2198\",\n    \"name\": \"VM01 Enterprise\",\n    \"parameters\": [\n        {\n            \"id\": 1,\n            \"value\": \"1\"\n        },\n        {\n            \"id\": 2,\n            \"value\": \"ENT\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/configs/update",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"configs",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/groups/list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"groups",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nexttoken",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"folderPath\": \"My Assets\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/groups/nexttoken",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"groups",
+								"nexttoken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Programs",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/programs/list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"programs",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "Retrieve Auth Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var respJsonData = JSON.parse(responseBody)",
+									"",
+									"if (respJsonData.status == \"success\") {",
+									"  pm.environment.set(\"access_token\", respJsonData.access_token)",
+									"  pm.environment.set(\"refresh_token\", respJsonData.refresh_token)",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{api-username}}\",\n    \"password\": \"{{api-password}}\",\n    \"client_id\": \"{{client_id}}\",\n    \"grant_type\": \"{{grant_type}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://customerapiauth.fortinet.com/api/v1/oauth/token/",
+							"protocol": "https",
+							"host": [
+								"customerapiauth",
+								"fortinet",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"oauth",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Entitlements",
+			"item": [
+				{
+					"name": "VM create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"configId\": \"2198\",\n    \"count\": \"1\",\n    \"description\": \"VM01 UTM - Created by API\",\n    \"endDate\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/vm/create",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"vm",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "HW entitlement create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"configId\": \"4239\",\n    \"serialNumbers\": [ \"FGT60FTK19000010\", \"FGT60FTK19000013\" ],\n    \"endDate\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/hardware/create",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"hardware",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"configId\": \"2198\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/list",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reactivate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"FGVMMLTM22004497\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/reactivate",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"reactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "points by config id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"configId\": \"2198\",\n    \"startDate\": \"2023-03-01\",\n    \"endDate\": \"2023-03-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/points",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "points by serial number",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"FGVMMLTM22004475\",\n    \"startDate\": \"2023-03-01\",\n    \"endDate\": \"2023-03-31\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/points",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"points"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stop",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"FGVMMLTM22004497\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/stop",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"stop"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"FGVMMLTM23002156\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/token",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"serialNumber\": \"FGVMMLTM22004475\",\n    \"configId\": \"2198\",\n    \"description\": \"VM01 UTM NSE4 LAB\",\n    \"endDate\": \"2023-11-08\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/entitlements/update",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"entitlements",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "f41tMDSMtsO649xUsvo5suIUaQ7rNJ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
