@@ -2,32 +2,41 @@
 
 ## Overview
 
-FortiFlex (Flex VM API) allows you to automate tasks such as creating VM entitlements when integrating with cloud orchestration platforms.
+FortiFlex API allows you to automate tasks such as creating entitlements when integrating with cloud orchestration platforms.
 
 ### Authentication
 
 Authentication will be done via OAuth token. To call Flex VM external API, 3rd party applications need to do following steps:
 
-Create an API User for the account in [IAM](https://docs.fortinet.com/document/forticloud/21.2.0/identity-access-management-iam/282341/adding-an-api-user).
-Give desired permission (Admin, ReadWrite, ReadOnly) for FlexVM to the newly created or existing API User. Actions that involve changing or creating data (such as creating a new Configuration or updating a VM) will require ReadWrite permission or above.
+1. Create an API User for the account in [IAM](https://docs.fortinet.com/document/forticloud/21.2.0/identity-access-management-iam/282341/adding-an-api-user).
 
-Call our API at `https://customerapiauth.fortinet.com/api/v1/oauth/token/` to retrieve OAuth token. Request body should be similar to:
-{
-  "username": "<API Username>",
-  "password": "<API Password>",
-  "client_id": "flexvm",
-  "grant_type": "password"
-}
+2. Give desired permission (Admin, ReadWrite, ReadOnly) for FlexVM to the newly created or existing API User. Actions that involve changing or creating data (such as creating a new Configuration or updating a VM) will require ReadWrite permission or above.
 
-Refer [here](https://docs.fortinet.com/document/fortiauthenticator/6.1.2/rest-api-solution-guide/498666/oauth-server-token-oauth-token) for more information
+3. Call our API at `https://customerapiauth.fortinet.com/api/v1/oauth/token/` to retrieve OAuth token. Request body should be similar to:
 
-Call FortiFlex (FlexVM API) endpoints at `https://support.fortinet.com/ES/api/flexvm/v1/` with the OAuth token as Authorization header with Bearer scheme.
+    ```json
+      {
+        "username": "<API Username>",
+        "password": "<API Password>",
+        "client_id": "flexvm",
+        "grant_type": "password"
+      }
+    ```
+
+    > Refer [here](https://docs.fortinet.com/document/fortiauthenticator/6.1.2/rest-api-solution-guide/498666/oauth-server-token-oauth-token) for more information
+
+4. Call FortiFlex API endpoints with the OAuth token as Authorization header with Bearer scheme.
 
 For example:
 
-Authorization: Bearer BOR1COV9QHUjWs1FMZHS1A42VAe5D3
+  ```python
+    Authorization: Bearer BOR1COV9QHUjWs1FMZHS1A42VAe5D3
 
-  ![FortiFlex Parameters](images/fortiflex-parameters.jpg)
+    V1: https://support.fortinet.com/ES/api/flexvm/v1/
+    V2: https://support.fortinet.com/ES/api/fortiflex/v2/
+  ```
+
+  ![FortiFlex Parameters](images/fortiflex-parameters.png)
 
 ## Setup
 
