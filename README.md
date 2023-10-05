@@ -42,20 +42,25 @@ For example:
 
 ### Postman
 
-Import the collection and the environment into your Postman client.
+Import the desired FortiFlex version collection and environment into your Postman client.
 
-Update the variables in the environment with your API username and password.
+Update the variables in the environment with your username and password.
 
 ### Python
 
 Create a Virtual Environment, add packages from requirements.txt
 
-Use Environment variables for authentication
+Use Environment variables for authentication.
 
-API_USERNAME
-API_PASSWORD
-API_CLIENT_ID
-API_GRANT_TYPE
+V1
+
+- FLEXVM_ACCESS_USERNAME
+- FLEXVM_ACCESS_PASSWORD
+
+V2
+
+- FORTIFLEX_ACCESS_USERNAME
+- FORTIFLEX_ACCESS_PASSWORD
 
 Uncomment code after __main__ for desired functions.
 
